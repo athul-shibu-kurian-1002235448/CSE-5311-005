@@ -1,12 +1,25 @@
-Selection Sort correctness:
+Selection Sort:
 
-Loop invariant: At the start of each iteration of the outer loop, the subarray A[1...i-1] contains the smallest i-1 elements of the original array, sorted in ascending order.
+void selection_sort(int a[], int n) {
+    int min;
+    for(int i=0; i<=n-2; i++) {
+        min = i;
+        for(int j=i+1; j<=n-1; j++) {
+            if(a[j]<a[min]) {
+                min=j;
+            }
+        }
+        swap(a[min],a[i]);
+    }
+}
 
-Initialization: The loop invariant holds before the first iteration of the loop, when i = 1. Initially, the subarray A[1...i-1] is empty. An empty array is trivially sorted, which confirms that the loop invariant holds before the first iteration of the loop.
 
-Maintenance: Each iteration of the loop maintains the loop invariant. The loop invariant states that at the start of each iteration i of the for loop, the subarray A[1...i-1] contains the smallest i-1 elements of the original array A, but in sorted order. 
+Correctness proof:
 
-During each iteration, the body of the loop selects the smallest element in the subarray A[i...n], where n is the length of the array, and swaps it with the element at index i. This ensures that the element at index i is in its correct sorted position relative to the elements in the subarray A[1...i]. As a result, after the swap, the subarray A[1...i] contains the smallest i elements of the original array A in sorted order. 
+Loop Invariant: At the start of each iteration of the outer loop when i is the loop index, the subarray a[0...i-1] contains the smallest i elements of the original array a, sorted in ascending order.
 
-Termination: The for loop terminates when i > n. Given that i starts from 1 and increments by 1 in each iteration, i must be n + 1 when the loop terminates. Substituting n + 1 for i in the loop invariant, we see that the subarray A[1...n] consists of the smallest n elements of the original array A in sorted order. Observing that A[1...n] is the entire array, we conclude that the entire array is sorted. Thus, the algorithm is correct.
+Initialization: Before the first iteration of the outer loop when i = 0, the subarray a[0...i-1] is empty. An empty subarray is trivially sorted. Therefore, the loop invariant holds before the first iteration begins.
 
+2. Maintenance: Assume the loop invariant holds at the start of the i-th iteration. This means that the subarray a[0...i-1] contains the smallest i elements of the array in sorted order. In the i-th iteration, the algorithm finds the smallest element in the remaining unsorted part of the array a[i...n-1] and swaps it with the element at index i. After this swap, The subarray a[0...i] now contains the smallest i+1 elements of the original array, with the first i elements already sorted (from previous iterations) and the (i+1)-th element placed in its correct position. Therefore, the loop invariant is maintained.
+
+3. Termination: When the outer loop ends, i = n - 1. At this point, the subarray a[0...n-2] contains the smallest n-1 elements of the array in sorted order, as the last element a[n-1] has not been processed yet. The final iteration places the smallest remaining element in its correct position, so the entire array a[0...n-1] is sorted. Hence, the algorithm is correct.
