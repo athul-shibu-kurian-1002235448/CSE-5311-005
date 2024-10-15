@@ -48,4 +48,4 @@ int main() {
 }
 
 
-//Outout: The 5th order statistic of the array A is: 5
+//Output: The 5th order statistic of the array A is: 5
