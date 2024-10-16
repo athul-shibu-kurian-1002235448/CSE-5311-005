@@ -16,7 +16,19 @@ public:
         length = len;
     }
 
+    bool Queue_Empty() {
+        return head == tail;
+    }
+
+    bool Queue_Full() {
+        return (tail + 1 == head) || (tail == length && head == 1);
+    }
+
     void Enqueue(int x) {
+        if (Queue_Full()) {
+            cout << "Error: Queue overflow" << endl;
+            return;
+        }
         data[tail] = x;
         if (tail == length) {
             tail = 1;
@@ -26,6 +38,10 @@ public:
     }
 
     int Dequeue() {
+        if (Queue_Empty()) {
+            cout << "Error: Queue underflow" << endl;
+            return -1;
+        }
         int x = data[head];
         if (head == length) {
             head = 1;
@@ -45,16 +61,15 @@ int main() {
 
     cout << "Dequeued element: " << Q.Dequeue() << endl;
     cout << "Dequeued element: " << Q.Dequeue() << endl;
-    cout << "Dequeued element: " << Q.Dequeue() << endl; 
+    cout << "Dequeued element: " << Q.Dequeue() << endl;
+
+    cout << "Dequeued element: " << Q.Dequeue() << endl;
+
+    for (int i = 1; i < QUEUE_SIZE; i++) {
+        Q.Enqueue(i);
+    }
+
+    Q.Enqueue(101);
 
     return 0;
 }
-
-/*
-Output:
-
-Dequeued element: 10
-Dequeued element: 20
-Dequeued element: 30
-
-*/
